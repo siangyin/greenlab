@@ -1,6 +1,33 @@
 import React from "react";
 import icon from "../assets/images/greenlab.png";
+import { useState, useEffect } from "react";
+
 const NavBar = () => {
+	const [showLinks, setShowLinks] = useState(true);
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [isLogin, setIsLogin] = useState(true);
+	const [showCurrentUser, setShowCurrentUser] = useState({ role: "admin" });
+
+	const currUser = {
+		name: "siangyin",
+		email: "siangyin916@gmail.com",
+		role: "user",
+	};
+
+	const updateWidth = () => {
+		setWindowWidth(window.innerWidth);
+		if (window.innerWidth > 768) {
+			setShowLinks(true);
+		} else {
+			setShowLinks(false);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener("resize", updateWidth);
+		return () => window.removeEventListener("resize", updateWidth);
+	}, [windowWidth]);
+
 	return (
 		<nav className="navbar navbar-expand-md navbar-light bg-light">
 			{/* <!-- Container wrapper --> */}
@@ -14,12 +41,16 @@ const NavBar = () => {
 					aria-controls="navbarSupportedContent"
 					aria-expanded="false"
 					aria-label="Toggle navigation"
+					onClick={() => setShowLinks(!showLinks)}
 				>
 					<i className="fas fa-bars"></i>
 				</button>
 
 				{/* <!-- Collapsible wrapper --> */}
-				<div className="collapse navbar-collapse" id="navbarSupportedContent">
+				<div
+					className={showLinks ? "collapse navbar-collapse" : "navbar-collapse"}
+					id="navbarSupportedContent"
+				>
 					{/* <!-- Navbar brand --> */}
 					<a className="navbar-brand mt-2 mt-lg-0" href="#">
 						<img
@@ -54,24 +85,38 @@ const NavBar = () => {
 
 				{/* <!-- Right elements --> */}
 				<div className="d-flex align-items-center">
-					{/* <!-- Icon --> */}
+					{/* <!-- general/ not logged-in --> */}
+					{showCurrentUser.role === "admin" ? (
+						<>
+							<a className="text-reset me-3" href="#">
+								<i className="fas fa-cog"></i>
+							</a>
+							<a className="text-reset me-3" href="#">
+								<i className="fas fa-database"></i>
+								<span className="badge rounded-pill badge-notification bg-danger">
+									5
+								</span>
+							</a>
+						</>
+					) : (
+						<>
+							<a className="text-reset me-3" href="#">
+								<i class="fas fa-user"></i>
+							</a>
+							<a className="text-reset me-3" href="#">
+								<i className="fas fa-shopping-cart"></i>
+								<span className="badge rounded-pill badge-notification bg-danger">
+									1
+								</span>
+							</a>
+						</>
+					)}
 
-					<a className="text-reset me-3" href="#">
-						<i className="fas fa-shopping-cart"></i>
-						<span className="badge rounded-pill badge-notification bg-danger">
-							1
-						</span>
-					</a>
-					<a className="text-reset me-3" href="#">
-						<i className="fas fa-database"></i>
-						<span className="badge rounded-pill badge-notification bg-danger">
-							10
-						</span>
-					</a>
-					{/* signout */}
-					<a className="text-reset me-3" href="#">
-						<i className="fas fa-sign-out-alt"></i>
-					</a>
+					{isLogin && (
+						<a className="text-reset me-3" href="#">
+							<i className="fas fa-sign-out-alt"></i>
+						</a>
+					)}
 				</div>
 				{/* <!-- Right elements --> */}
 			</div>
