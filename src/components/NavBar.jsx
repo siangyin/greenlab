@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 const NavBar = () => {
 	const [showLinks, setShowLinks] = useState(true);
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-	const [isLogin, setIsLogin] = useState(true);
-	const [showCurrentUser, setShowCurrentUser] = useState({ role: "admin" });
+	const [isLogin, setIsLogin] = useState(false);
+	const [showCurrentUser, setShowCurrentUser] = useState({ role: "user" });
 
 	const currUser = {
 		name: "siangyin",
