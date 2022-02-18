@@ -1,12 +1,10 @@
 import React from "react";
-import { NavBar, Main, Footer } from "../components";
+import { Main } from "../components";
 
 function AllProductsPage() {
 	return (
 		<>
-			<NavBar />
 			<Main />
-			<Footer />
 		</>
 	);
 }

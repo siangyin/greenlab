@@ -71,14 +71,19 @@ const Footer = () => {
 							{/* <!-- Links --> */}
 							<h6 className="text-uppercase fw-bold mb-4">Contact</h6>
 							<p>
-								<i className="fas fa-home me-3"></i> New York, NY 10012, US
+								<i className="fas fa-home me-3"></i> Lot 1178, Jalan Sri Aman,{" "}
+								<br />
+								KG Sri Jaya, Sungai Telor <br />
+								81900 Kota Tinggi,
+								<br />
+								Johor, Malaysia
 							</p>
 							<p>
 								<i className="fas fa-envelope me-3"></i>
-								info@example.com
+								salesyixiang@gmail.com
 							</p>
 							<p>
-								<i className="fas fa-phone me-3"></i> + 01 234 567 88
+								<i className="fas fa-phone me-3"></i> +60 12-755 1511
 							</p>
 						</div>
 						{/* <!-- Grid column --> */}
@@ -93,9 +98,9 @@ const Footer = () => {
 				className="text-center p-2"
 				style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
 			>
-				© 2022 Copyright:
-				<a className="text-reset fw-bold" href="https://mdbootstrap.com/">
-					GREENLAB
+				© 2022 Copyright. Website created by
+				<a className="text-reset fw-bold" href="https://github.com/siangyin">
+					SiangYin
 				</a>
 			</div>
 			{/* <!-- Copyright --> */}

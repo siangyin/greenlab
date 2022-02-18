@@ -1,10 +1,12 @@
 import React from "react";
 // import { MDBBtn, MDBContainer } from "mdb-react-ui-kit";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Footer, NavBar } from "./components";
 import {
 	HomePage,
 	LoginPage,
 	AccountPage,
+	AdminPage,
 	AllProductsPage,
 	SingleProductPage,
 	AdminProductPage,
@@ -18,10 +20,12 @@ import {
 function App() {
 	return (
 		<Router>
+			<NavBar />
 			<Routes>
 				<Route exact path="/" element={<HomePage />} />
 				<Route exact path="/login" element={<LoginPage />} />
 				<Route exact path="/account" element={<AccountPage />} />
+				<Route exact path="/admin" element={<AdminPage />} />
 				<Route exact path="/products" element={<AllProductsPage />} />
 				<Route exact path="/product/:id" element={<SingleProductPage />} />
 				<Route exact path="/product-new" element={<AdminProductPage />} />
@@ -32,6 +36,7 @@ function App() {
 				<Route exact path="/checkout" element={<CheckoutPage />} />
 				<Route path="*" element={<Error404Page />} />
 			</Routes>
+			<Footer />
 		</Router>
 	);
 }

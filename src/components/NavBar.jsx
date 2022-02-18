@@ -1,12 +1,12 @@
-import React from "react";
-import icon from "../assets/images/greenlab.png";
+import { Link } from "react-router-dom";
+import { FaLeaf, FaBars } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
 const NavBar = () => {
 	const [showLinks, setShowLinks] = useState(true);
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-	const [isLogin, setIsLogin] = useState(false);
-	const [showCurrentUser, setShowCurrentUser] = useState({ role: "user" });
+	const [isLogin, setIsLogin] = useState(true);
+	const [showCurrentUser, setShowCurrentUser] = useState({ role: "admin" });
 
 	const currUser = {
 		name: "siangyin",
@@ -29,98 +29,51 @@ const NavBar = () => {
 	}, [windowWidth]);
 
 	return (
-		<nav className="navbar navbar-expand-md navbar-light bg-light">
-			{/* <!-- Container wrapper --> */}
-			<div className="container-fluid">
-				{/* <!-- Toggle button --> */}
-				<button
-					className="navbar-toggler"
-					type="button"
-					data-mdb-toggle="collapse"
-					data-mdb-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-					onClick={() => setShowLinks(!showLinks)}
-				>
-					<i className="fas fa-bars"></i>
+		<nav className="flex items-center justify-between flex-wrap bg-emerald-900 p-6">
+			<a className="flex items-center flex-shrink-0 text-white mr-6" href="/">
+				<img
+					src="https://altusimpact.com/wp-content/uploads/2020/05/white-leaf.png"
+					width="30"
+				/>
+				<span className="font-semibold text-2xl tracking-tight px-1">
+					Greenlab
+				</span>
+			</a>
+			<div className="block sm:hidden">
+				<button className="flex items-center px-3 py-2 border rounded text-emerald-200 border-emerald-400 hover:text-white hover:border-white">
+					<FaBars />
 				</button>
-
-				{/* <!-- Collapsible wrapper --> */}
-				<div
-					className={showLinks ? "collapse navbar-collapse" : "navbar-collapse"}
-					id="navbarSupportedContent"
-				>
-					{/* <!-- Navbar brand --> */}
-					<a className="navbar-brand mt-2 mt-lg-0" href="#">
-						<img
-							src="https://cdn-icons.flaticon.com/png/512/3196/premium/3196633.png?token=exp=1645017866~hmac=0933c02355d7abec6b2d36bd328f245e"
-							height="30"
-							alt="Logo"
-							loading="lazy"
-						/>
-						<span className="fs-2 fw-bold text-success">Greenlab</span>
-					</a>
-					{/* <!-- Left links --> */}
-					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
-						<li className="nav-item">
-							<a className="nav-link" href="#">
-								Shop
-							</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link" href="#">
-								Gallery
-							</a>
-						</li>
-						<li className="nav-item">
-							<a className="nav-link" href="#">
-								Social
-							</a>
-						</li>
-					</ul>
-					{/* <!-- Left links --> */}
-				</div>
-				{/* <!-- Collapsible wrapper --> */}
-
-				{/* <!-- Right elements --> */}
-				<div className="d-flex align-items-center">
-					{/* <!-- general/ not logged-in --> */}
-					{showCurrentUser.role === "admin" ? (
-						<>
-							<a className="text-reset me-3" href="#">
-								<i className="fas fa-cog"></i>
-							</a>
-							<a className="text-reset me-3" href="#">
-								<i className="fas fa-database"></i>
-								<span className="badge rounded-pill badge-notification bg-danger">
-									5
-								</span>
-							</a>
-						</>
-					) : (
-						<>
-							<a className="text-reset me-3" href="#">
-								<i class="fas fa-user"></i>
-							</a>
-							<a className="text-reset me-3" href="#">
-								<i className="fas fa-shopping-cart"></i>
-								<span className="badge rounded-pill badge-notification bg-danger">
-									1
-								</span>
-							</a>
-						</>
-					)}
-
-					{isLogin && (
-						<a className="text-reset me-3" href="#">
-							<i className="fas fa-sign-out-alt"></i>
-						</a>
-					)}
-				</div>
-				{/* <!-- Right elements --> */}
 			</div>
-			{/* <!-- Container wrapper --> */}
+			<div className="w-full block flex-grow md:flex md:items-center md:w-auto">
+				<div className="text-sm md:flex-grow">
+					<a
+						href="/"
+						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-900 hover:bg-white  md:mt-0"
+					>
+						ONLINE STORE
+					</a>
+				</div>
+				<div>
+					<a
+						href="/login"
+						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-900 hover:bg-white  md:mt-0"
+					>
+						Login
+					</a>
+					<a
+						href="/signup"
+						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-900 hover:bg-white  md:mt-0"
+					>
+						Sign Up
+					</a>
+					<a
+						href="/cart"
+						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-900 hover:bg-white  md:mt-0"
+					>
+						Cart
+					</a>
+				</div>
+			</div>
 		</nav>
 	);
 };

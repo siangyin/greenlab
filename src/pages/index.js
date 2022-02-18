@@ -1,6 +1,7 @@
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import AccountPage from "./AccountPage";
+import AdminPage from "./AdminPage";
 import AllProductsPage from "./AllProductsPage";
 import SingleProductPage from "./SingleProductPage";
 import AdminProductPage from "./AdminProductPage";
@@ -16,6 +17,7 @@ export {
 	HomePage,
 	LoginPage,
 	AccountPage,
+	AdminPage,
 	AllProductsPage,
 	SingleProductPage,
 	AdminProductPage,
