@@ -1,7 +1,6 @@
 import React from "react";
-import { LoginForm } from "../components";
 
-function LoginPage() {
+function LoginForm() {
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
 			<div
@@ -20,7 +19,7 @@ function LoginPage() {
         "
 			>
 				<div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
-					Login here
+					Create New Account
 				</div>
 
 				<div className="mt-10">
@@ -30,7 +29,50 @@ function LoginPage() {
 								for="email"
 								className="mb-1 text-xs tracking-wide text-gray-600"
 							>
-								Email Address:
+								Name:
+							</label>
+							<div className="relative">
+								<div
+									className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    absolute
+                    left-0
+                    top-0
+                    h-full
+                    w-10
+                    text-gray-400
+                  "
+								>
+									<i className="fas fa-user text-emerald-500"></i>
+								</div>
+
+								<input
+									id="email"
+									type="email"
+									name="email"
+									className="
+                    text-sm
+                    placeholder-gray-500
+                    pl-10
+                    pr-4
+                    rounded-2xl
+                    border border-gray-400
+                    w-full
+                    py-2
+                    focus:outline-none focus:border-emerald-400
+                  "
+									placeholder="Enter your name"
+								/>
+							</div>
+						</div>
+						<div className="flex flex-col mb-5">
+							<label
+								for="email"
+								className="mb-1 text-xs tracking-wide text-gray-600"
+							>
+								E-Mail Address:
 							</label>
 							<div className="relative">
 								<div
@@ -135,7 +177,7 @@ function LoginPage() {
                   ease-in
                 "
 							>
-								<span className="mr-2 uppercase">Login</span>
+								<span className="mr-2 uppercase">Sign Up</span>
 								<span>
 									<svg
 										className="h-6 w-6"
@@ -156,7 +198,7 @@ function LoginPage() {
 			</div>
 			<div className="flex justify-center items-center mt-6">
 				<a
-					href="/login"
+					href="#"
 					target="_blank"
 					className="
             inline-flex
@@ -168,10 +210,7 @@ function LoginPage() {
 				>
 					<span className="ml-2">
 						You have an account?
-						<a
-							href="/login"
-							className="text-xs ml-2 text-emerald-500 font-semibold"
-						>
+						<a href="#" className="text-xs ml-2 text-emerald-500 font-semibold">
 							Login here
 						</a>
 					</span>
@@ -181,4 +220,4 @@ function LoginPage() {
 	);
 }
 
-export default LoginPage;
+export default LoginForm;

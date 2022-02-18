@@ -1,5 +1,6 @@
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
+import SignupPage from "./SignupPage";
 import AccountPage from "./AccountPage";
 import AdminPage from "./AdminPage";
 import AllProductsPage from "./AllProductsPage";
@@ -16,6 +17,7 @@ import Error404Page from "./Error404Page";
 export {
 	HomePage,
 	LoginPage,
+	SignupPage,
 	AccountPage,
 	AdminPage,
 	AllProductsPage,

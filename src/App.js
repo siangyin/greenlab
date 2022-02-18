@@ -5,6 +5,7 @@ import { Footer, NavBar } from "./components";
 import {
 	HomePage,
 	LoginPage,
+	SignupPage,
 	AccountPage,
 	AdminPage,
 	AllProductsPage,
@@ -24,6 +25,7 @@ function App() {
 			<Routes>
 				<Route exact path="/" element={<HomePage />} />
 				<Route exact path="/login" element={<LoginPage />} />
+				<Route exact path="/signup" element={<SignupPage />} />
 				<Route exact path="/account" element={<AccountPage />} />
 				<Route exact path="/admin" element={<AdminPage />} />
 				<Route exact path="/products" element={<AllProductsPage />} />
