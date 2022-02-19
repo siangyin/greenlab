@@ -1,7 +1,8 @@
 import React from "react";
+import { ProductForm } from "../components";
 
 function AdminProductPage() {
-	return <div>AdminProductPage</div>;
+	return <ProductForm />;
 }
 
 export default AdminProductPage;

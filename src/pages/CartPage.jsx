@@ -101,7 +101,7 @@ function CartPage() {
 					</div>
 					<div className="py-10">
 						<label
-							for="promo"
+							htmlFor="promo"
 							className="font-semibold inline-block mb-3 text-sm uppercase"
 						>
 							Promo Code
