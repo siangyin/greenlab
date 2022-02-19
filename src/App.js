@@ -1,5 +1,5 @@
-import React from "react";
-// import { MDBBtn, MDBContainer } from "mdb-react-ui-kit";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Footer, NavBar } from "./components";
 import {
@@ -19,6 +19,23 @@ import {
 } from "./pages";
 
 function App() {
+	const [user, setUser] = useState();
+
+	useEffect(() => {
+		const getAllProducts = async () => {
+			try {
+				const res = await axios.get(
+					"https://greenlab-be.herokuapp.com/api/v1/products"
+				);
+				console.log(res.data);
+				return res;
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		getAllProducts();
+	});
+
 	return (
 		<Router>
 			<NavBar />
