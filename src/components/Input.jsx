@@ -4,7 +4,7 @@ function Input({ item }) {
 	return (
 		<div className="mb-6">
 			<label
-				for={item.name}
+				htmlFor={item.name}
 				className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 capitalize"
 			>
 				{item.label}
