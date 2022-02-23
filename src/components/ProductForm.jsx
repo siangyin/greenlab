@@ -1,9 +1,15 @@
+import axios from "axios";
 import { useState } from "react";
 import Input from "./Input";
 
 function ProductForm() {
   const [formProperty, setFormProperty] = useState([]);
   const [productsData, setProductsData] = useState({});
+
+  //get all products
+
+  //BE url to post data to
+  const url = "https://greenlab-be.herokuapp.com/api/v1/products";
 
   // get userID from local Storage
   const userID = localStorage.getItem("userID");
@@ -12,6 +18,10 @@ function ProductForm() {
   function onChangeHandler(e) {
     const newData = { ...productsData };
     newData[e.target.name] = e.target.value;
+    if (newData.price) {
+      newData.price = Number(newData.price);
+      //   console.log("Price", newData.price);
+    }
     setProductsData(newData);
     console.log(newData);
   }
@@ -19,6 +29,15 @@ function ProductForm() {
   //onSubmit Handler
   function submitHandler(e) {
     e.preventDefault();
+    createProduct();
+  }
+
+  // Create POST request with body (without Image yet)
+  async function createProduct() {
+    let payload = productsData;
+    let res = await axios.post(url, payload);
+    let data = res.data;
+    console.log(data);
   }
 
   return (
@@ -33,7 +52,7 @@ function ProductForm() {
             />
           </div>
           <div className="md:w-8/12 lg:w-5/12 lg:ml-20">
-            <form>
+            <form onSubmit={submitHandler}>
               {/* <!-- Name input --> */}
               <Input
                 type="text"
@@ -69,13 +88,7 @@ function ProductForm() {
               />
 
               {/* <!-- Image input --> */}
-              <Input
-                type="file"
-                name="image"
-                value=""
-                required="true"
-                handleChange=""
-              />
+              <Input type="file" name="image" value="" handleChange="" />
 
               {/* <!-- Submit button --> */}
               <button
