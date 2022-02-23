@@ -23,20 +23,7 @@ function App() {
 	const [userID, setUserID] = useState();
 	const [admin, setAdmin] = useState();
 
-	useEffect(() => {
-		const getAllProducts = async () => {
-			try {
-				const res = await axios.get(
-					"https://greenlab-be.herokuapp.com/api/v1/products"
-				);
-				console.log(res.data);
-				return res;
-			} catch (err) {
-				console.error(err);
-			}
-		};
-		getAllProducts();
-	});
+
 
 	return (
 		<LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
