@@ -7,6 +7,7 @@ import ProfileDetail from "./ProfileDetail";
 import OrdersCard from "./OrdersCard";
 import Subheader from "./Subheader";
 import Input from "./Input";
+import LoadingSpinner from "./LoadingSpinner";
 
 export {
 	NavBar,
@@ -18,4 +19,5 @@ export {
 	Subheader,
 	ProductForm,
 	Input,
+	LoadingSpinner,
 };

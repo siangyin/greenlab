@@ -1,55 +1,117 @@
-import React from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { useNavigate, Link, useParams } from "react-router-dom";
+import { BE_URL } from "../helpers";
+import axios from "axios";
+import { FaStar } from "react-icons/fa";
+import { LoadingSpinner, Input } from "../components";
 
 function ProductSinglePage() {
+	const { id } = useParams();
+	const localuser = localStorage.getItem("userID");
+	const [prodDb, setProdDb] = useState();
+	const [prodReviewDb, setProdReviewDb] = useState();
+	const [addQty, setAddQty] = useState(1);
+
+	const getProd = async () => {
+		try {
+			const res = await axios.get(`${BE_URL}/products/${id}`);
+			console.log(res.data.data);
+			return setProdDb(res.data.data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const getReviews = async () => {
+		try {
+			const res = await axios.get(`${BE_URL}/products/${id}/reviews`);
+			console.log(res.data.reviews);
+			return setProdReviewDb(res.data.reviews);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const postQtyCart = async (req, res) => {
+		try {
+			if (localuser) {
+				const res = await axios.post(`${BE_URL}/carts`, {
+					productId: id,
+					qty: addQty,
+					userId: localuser,
+				});
+
+				console.log(res);
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	function handleChange(e) {
+		const name = e.target.name;
+		const value = e.target.value;
+
+		setAddQty(value);
+	}
+
+	useEffect(() => {
+		getProd();
+		getReviews();
+	}, []);
+
+	if (!prodDb) {
+		return <LoadingSpinner />;
+	}
 	return (
 		<div className="2xl:container 2xl:mx-auto md:py-12 lg:px-20 md:px-6 py-9 px-4">
-			<div id="viewerButton" className="hidden w-full flex justify-center">
-				<button className="bg-white text-indigo-600 shadow-md rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 py-5 px-10 font-semibold">
-					Open Quick View
-				</button>
-			</div>
-			<div
-				id="viewerBox"
-				className="lg:p-10 md:p-6 p-4 bg-white dark:bg-gray-900"
-			>
-				<div className="flex justify-end">
-					<button
-						aria-label="Close"
-						className="focus:outline-none focus:ring-2 focus:ring-gray-800"
-					>
-						X
-					</button>
+			<div className="mt-3 md:mt-4 lg:mt-0 flex flex-col lg:flex-row items-strech justify-center lg:space-x-8">
+				<div className="lg:w-1/2 flex justify-between items-strech bg-gray-50  px-2 py-20 md:py-6 md:px-6 lg:py-24">
+					<img
+						className="object-cover h-48 w-96"
+						src={prodDb.image}
+						alt={prodDb.name}
+					/>
 				</div>
-				<div className="mt-3 md:mt-4 lg:mt-0 flex flex-col lg:flex-row items-strech justify-center lg:space-x-8">
-					<div className="lg:w-1/2 flex justify-between items-strech bg-gray-50  px-2 py-20 md:py-6 md:px-6 lg:py-24">
-						<img
-							src="https://i.ibb.co/fMGD6ZC/eugene-chystiakov-3ne-Swyntb-Q8-unsplash-1-removebg-preview-3-1.png"
-							alt="A black chair with wooden legs"
-							className="w-1/3"
-						/>
+				<div className="lg:w-1/2 flex flex-col justify-center mt-7 md:mt-8 lg:mt-0 pb-8 lg:pb-0">
+					<h1 className="text-3xl lg:text-4xl font-semibold text-gray-800">
+						{prodDb.name}
+					</h1>
+
+					<div className="flex items-center mt-2.5 mb-5">
+						<span className="bg-yellow-100 text-black-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-emerald-800">
+							{prodDb.averageRating}
+						</span>{" "}
+						<FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar />
 					</div>
-					<div className="lg:w-1/2 flex flex-col justify-center mt-7 md:mt-8 lg:mt-0 pb-8 lg:pb-0">
-						<h1 className="text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white">
-							super plant
-						</h1>
-						<p className="text-base leading-normal text-gray-600 dark:text-white mt-2">
-							You don't just want to be comfortable sitting in a bar stool—you
-							want to be comfortable shimmying it up to the bar, closer to your
-							lover, or back slightly to include a third person in the
-							conversation.
-						</p>
-						<p className="text-3xl font-medium text-gray-600 dark:text-white mt-8 md:mt-10"></p>
-						<div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-16">
-							<button className="w-full md:w-3/5 border border-gray-800 text-base font-medium leading-none text-white uppercase py-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800 text-white dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200">
-								Add to Cart
-							</button>
-						</div>
-						<div className="mt-6">
-							<button className="text-xl underline text-gray-800 dark:text-white dark:hover:text-gray-200 capitalize hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
-								xxxx reviews
-							</button>
-						</div>
+
+					<p className="text-base leading-normal text-gray-600  mt-2">
+						{prodDb.description}
+					</p>
+					<p className="text-3xl font-medium text-gray-600 my-5"></p>
+
+					{/* divider */}
+
+					<span className="text-3xl font-bold text-gray-900 dark:text-white">
+						$ {prodDb.price}
+					</span>
+
+					<div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-16">
+						{/* divider */}
+						<Input
+							type="number"
+							name="qty"
+							value={addQty ? addQty : "1"}
+							handleChange={handleChange}
+							required="true"
+						/>
+						<button
+							type="button"
+							onClick={postQtyCart}
+							className="text-white bg-rose-400 hover:bg-rose-600 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-400 dark:focus:ring-rose-600"
+						>
+							Add to cart
+						</button>
 					</div>
 				</div>
 			</div>
