@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { CartItem, LoadingSpinner, ButtonAction } from "./";
 
