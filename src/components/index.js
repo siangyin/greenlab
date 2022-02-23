@@ -10,6 +10,7 @@ import Input from "./Input";
 import LoadingSpinner from "./LoadingSpinner";
 import ButtonAction from "./ButtonAction";
 import CartItem from "./CartItem";
+import AdminAllOrders from "./AdminAllOrders";
 
 export {
 	NavBar,
@@ -24,4 +25,5 @@ export {
 	LoadingSpinner,
 	ButtonAction,
 	CartItem,
+	AdminAllOrders,
 };

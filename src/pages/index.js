@@ -5,7 +5,7 @@ import AdminPage from "./AdminPage";
 import ProductListPage from "./ProductListPage";
 import ProductSinglePage from "./ProductSinglePage";
 import AdminProductSetupPage from "./AdminProductSetupPage";
-import AdminAllOrdersPage from "./AdminAllOrdersPage";
+
 import OrderPage from "./OrderPage";
 import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
@@ -21,7 +21,6 @@ export {
 	ProductListPage,
 	ProductSinglePage,
 	AdminProductSetupPage,
-	AdminAllOrdersPage,
 	OrderPage,
 	CartPage,
 	CheckoutPage,

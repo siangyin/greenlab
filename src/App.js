@@ -50,7 +50,24 @@ function App() {
 									element={<UserAccountPage minitab="order" />}
 								/>
 
-								<Route exact path="/admin" element={<AdminPage />} />
+								<Route
+									exact
+									path="/admin"
+									element={<AdminPage minitab="users" />}
+								/>
+
+								<Route
+									exact
+									path="/admin-users"
+									element={<AdminPage minitab="users" />}
+								/>
+
+								<Route
+									exact
+									path="/admin-orders"
+									element={<AdminPage minitab="orders" />}
+								/>
+
 								<Route exact path="/products" element={<ProductListPage />} />
 								<Route
 									exact
@@ -68,7 +85,7 @@ function App() {
 									element={<AdminProductSetupPage />}
 								/>
 								<Route exact path="/cart" element={<CartPage />} />
-								<Route exact path="/orders" element={<AdminAllOrdersPage />} />
+								{/* <Route exact path="/orders" element={<AdminAllOrdersPage />} /> */}
 								<Route exact path="/order/:id" element={<OrderPage />} />
 								<Route exact path="/checkout" element={<CheckoutPage />} />
 								<Route path="*" element={<Error404Page />} />
