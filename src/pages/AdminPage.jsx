@@ -12,8 +12,6 @@ function AdminPage({ minitab }) {
 	const localuser = localStorage.getItem("userID");
 
 	const [userInfo, setUserInfo] = useState({});
-	// console.log(localuser);
-	console.log(userInfo);
 
 	useEffect(() => {
 		const getCurrentUserDetail = async (req, res) => {
@@ -22,21 +20,27 @@ function AdminPage({ minitab }) {
 					const res = await axios.get(
 						`${BE_URL}/users/myacct?userId=${localuser}`
 					);
-					console.log(res.data);
 					setUserInfo({
 						user: res.data.user,
 						address: res.data.address,
 						order: res.data.order,
 					});
+
+					if (res.data.user.role === "admin") {
+						setAdmin(true);
+					}
 				}
 
 				return userInfo;
 			} catch (err) {
-				console.error(err);
+				console.log(err);
 			}
 		};
 		getCurrentUserDetail();
 	}, []);
+
+	console.log(admin);
+	console.log(userInfo);
 
 	return (
 		<>
