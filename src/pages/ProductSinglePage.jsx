@@ -3,7 +3,7 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import { BE_URL } from "../helpers";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
-import { LoadingSpinner, Input } from "../components";
+import { LoadingSpinner, Input, ButtonAction } from "../components";
 
 function ProductSinglePage() {
 	const { id } = useParams();
@@ -105,13 +105,7 @@ function ProductSinglePage() {
 							handleChange={handleChange}
 							required="true"
 						/>
-						<button
-							type="button"
-							onClick={postQtyCart}
-							className="text-white bg-rose-400 hover:bg-rose-600 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-400 dark:focus:ring-rose-600"
-						>
-							Add to cart
-						</button>
+						<ButtonAction labelText="add to cart" handleClick={postQtyCart} />
 					</div>
 				</div>
 			</div>

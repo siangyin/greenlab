@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import axios from "axios";
-import Input from "./Input";
+import { Input, ButtonAction } from "./";
 
 function ProfileDetail({ userInfo }) {
 	const [userAddInputDb, setUserAddInputDb] = useState();
@@ -117,13 +117,10 @@ function ProfileDetail({ userInfo }) {
 				required="true"
 			/>
 
-			<button
-				type="button"
-				onClick={postUpdatedUserProfile}
-				className="text-white capitalize bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-			>
-				update detail
-			</button>
+			<ButtonAction
+				labelText="update profile"
+				handleClick={postUpdatedUserProfile}
+			/>
 		</form>
 	);
 }

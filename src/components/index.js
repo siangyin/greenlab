@@ -8,6 +8,8 @@ import OrdersCard from "./OrdersCard";
 import Subheader from "./Subheader";
 import Input from "./Input";
 import LoadingSpinner from "./LoadingSpinner";
+import ButtonAction from "./ButtonAction";
+import CartItem from "./CartItem";
 
 export {
 	NavBar,
@@ -20,4 +22,6 @@ export {
 	ProductForm,
 	Input,
 	LoadingSpinner,
+	ButtonAction,
+	CartItem,
 };
