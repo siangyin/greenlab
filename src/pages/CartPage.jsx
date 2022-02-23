@@ -63,7 +63,10 @@ function CartPage() {
 					address: userDetail.address._id,
 					userId: localuser,
 				});
-				navigate(`/order/${res.data._id}`);
+				if (res) {
+					navigate(`/order/${res.data._id}`);
+				}
+				navigate(`/account-order`);
 			}
 		} catch (err) {
 			console.log(err);
