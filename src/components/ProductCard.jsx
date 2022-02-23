@@ -40,7 +40,7 @@ function ProductCard({ item }) {
 					</h3>
 				</Link>
 				<div className="flex items-center mt-2.5 mb-5">
-					<span className="bg-yellow-100 text-black-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-emerald-800">
+					<span className="bg-yellow-100 text-black-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200">
 						{item.averageRating}
 					</span>{" "}
 					<FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar />

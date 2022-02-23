@@ -102,29 +102,30 @@ const NavBar = () => {
 							Admin
 						</Link>
 					) : (
+						<Link
+							to="/cart"
+							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+						>
+							Cart
+						</Link>
+					)}
+
+					{loggedIn && (
 						<>
-							<Link
-								to="/cart"
-								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-							>
-								Cart
-							</Link>
 							<Link
 								to="/account"
 								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
 							>
 								Account
 							</Link>
-						</>
-					)}
 
-					{loggedIn && (
-						<button
-							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-							onClick={handleLogOut}
-						>
-							Logout
-						</button>
+							<button
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+								onClick={handleLogOut}
+							>
+								Logout
+							</button>
+						</>
 					)}
 				</div>
 			</div>

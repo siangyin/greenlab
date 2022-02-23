@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { BE_URL } from "../helpers";
 import axios from "axios";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { Input, ButtonAction, Subheader } from "./";
 
 function ProductForm() {
 	const [productsData, setProductsData] = useState();
 	const [selectedFile, setSelectedFile] = useState(null);
-	const url = `${BE_URL}/products`;
+	const [successMsg, setSuccessMsg] = useState();
+
 	const userID = localStorage.getItem("userID");
+	const { id } = useParams();
 
 	function onChangeHandler(e) {
 		const newData = { ...productsData };
@@ -17,15 +20,28 @@ function ProductForm() {
 			//   console.log("Price", newData.price);
 		}
 		setProductsData(newData);
-		console.log(newData);
+		// console.log(newData);
 	}
 
 	// Create POST request with body (without Image yet)
 	async function createProduct() {
 		let payload = { ...productsData, createdBy: userID };
-		let res = await axios.post(url, payload);
+		let res = await axios.post(`${BE_URL}/products`, payload);
 		console.log(res.data);
-		uploadImg(res.data.data._id);
+		if (selectedFile) {
+			uploadImg(res.data.data._id);
+		}
+		setSuccessMsg(`/product/${res.data.data._id}`);
+	}
+
+	async function updateProduct() {
+		let payload = { ...productsData };
+		let res = await axios.patch(`${BE_URL}/products/${id}`, payload);
+		console.log(res.data);
+		if (selectedFile) {
+			uploadImg(res.data.data._id);
+		}
+		setSuccessMsg(`/product/${res.data.data._id}`);
 	}
 
 	// upload img
@@ -45,9 +61,24 @@ function ProductForm() {
 		}
 	}
 
+	const getAllProd = async () => {
+		try {
+			const res = await axios.get(`${BE_URL}/products/${id}`);
+			console.log(res.data.data);
+			return setProductsData(res.data.data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		if (id) {
+			getAllProd();
+		}
+	}, []);
+
 	return (
 		<form className="m-10">
-			{/* <!-- Name input --> */}
 			<Input
 				type="text"
 				name="name"
@@ -80,8 +111,20 @@ function ProductForm() {
 				}}
 			/>
 
-			{/* <!-- Submit button --> */}
-			<ButtonAction labelText="add product" handleClick={createProduct} />
+			{id ? (
+				<ButtonAction labelText="update product" handleClick={updateProduct} />
+			) : (
+				<ButtonAction labelText="add product" handleClick={createProduct} />
+			)}
+
+			{successMsg && (
+				<Link
+					to={successMsg}
+					className="text-emerald-500 font-semibold mr-2 px-2.5 hover:text-rose-500"
+				>
+					Product updated, view here
+				</Link>
+			)}
 		</form>
 	);
 }

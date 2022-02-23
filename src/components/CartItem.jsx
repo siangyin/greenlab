@@ -21,13 +21,25 @@ const CartItem = ({
 			<div className="flex w-2/5">
 				{/* <!-- product -->  */}
 				<div className="w-20">
-					<img className="h-24" src={item.image} alt={item.name} />
+					<img
+						className="h-24 object-contain"
+						src={item.image}
+						alt={item.name}
+					/>
 				</div>
 				<div className="flex flex-col justify-center ml-4 space-y-4">
 					<span className="font-bold text-sm uppercase">{item.name}</span>
-					<span className="font-semibold hover:text-rose-500 text-gray-500 text-xs">
-						{!id && <FaTrashAlt />}
-					</span>
+
+					{!id && (
+						<span
+							onClick={() => {
+								handleDelete(item._id);
+							}}
+							className="font-semibold hover:text-rose-500 text-gray-500 text-xs"
+						>
+							<FaTrashAlt />
+						</span>
+					)}
 				</div>
 			</div>
 			<div className="flex justify-center w-1/5">

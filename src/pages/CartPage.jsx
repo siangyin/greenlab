@@ -73,6 +73,12 @@ function CartPage() {
 		}
 	};
 
+	async function handleDelete(id) {
+		const res = await axios.delete(`${BE_URL}/carts/${id}`);
+		console.log(res.data);
+		window.location.reload();
+	}
+
 	useEffect(() => {
 		getCurrentUserCart();
 		getCurrentUserDetail();
@@ -117,7 +123,7 @@ function CartPage() {
 									key={item._id}
 									item={item}
 									handleUpdate=""
-									handleDelete=""
+									handleDelete={handleDelete}
 								/>
 							);
 						})}
@@ -146,9 +152,19 @@ function CartPage() {
 						<label className="font-medium inline-block mb-3 text-sm capitalize">
 							Shipping shipping $10
 						</label>
-						<select className="block p-2 text-gray-600 w-full text-sm">
-							<option>{userDetail.address.address}</option>
-						</select>
+
+						{userDetail.address ? (
+							<span className="block p-2 text-gray-600 w-full text-sm">
+								{userDetail.address.address}
+							</span>
+						) : (
+							<Link
+								to="/account"
+								className="block p-2 text-rose-600 w-full text-sm hover:underline"
+							>
+								please update address in profile
+							</Link>
+						)}
 					</div>
 
 					<div className="border-t mt-8">
@@ -156,10 +172,12 @@ function CartPage() {
 							<span>Total cost</span>
 							<span>$ {subtotalSum + 10}</span>
 						</div>
-						<ButtonAction
-							labelText="submit order"
-							handleClick={postCartOrder}
-						/>
+						{userCartDb.length > 1 && (
+							<ButtonAction
+								labelText="submit order"
+								handleClick={postCartOrder}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
