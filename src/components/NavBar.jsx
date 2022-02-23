@@ -45,6 +45,7 @@ const NavBar = () => {
 			console.log(error);
 		}
 	};
+	console.log(loggedIn);
 
 	return (
 		<nav className="flex items-center justify-between flex-wrap bg-emerald-500 p-6">
@@ -76,42 +77,55 @@ const NavBar = () => {
 					</a>
 				</div>
 				<div>
-					<Link
-						to="/login"
-						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-					>
-						Login
-					</Link>
-					<Link
-						to="/signup"
-						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-					>
-						Sign Up
-					</Link>
-					<Link
-						to="/cart"
-						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-					>
-						Cart
-					</Link>
-					<Link
-						to="/account"
-						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-					>
-						Account
-					</Link>
-					<Link
-						to="/admin"
-						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-					>
-						Admin
-					</Link>
-					<button
-						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-						onClick={handleLogOut}
-					>
-						Logout
-					</button>
+					{!loggedIn && (
+						<>
+							<Link
+								to="/login"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Login
+							</Link>
+							<Link
+								to="/signup"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Sign Up
+							</Link>
+						</>
+					)}
+
+					{admin ? (
+						<Link
+							to="/admin"
+							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+						>
+							Admin
+						</Link>
+					) : (
+						<>
+							<Link
+								to="/cart"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Cart
+							</Link>
+							<Link
+								to="/account"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Account
+							</Link>
+						</>
+					)}
+
+					{loggedIn && (
+						<button
+							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							onClick={handleLogOut}
+						>
+							Logout
+						</button>
+					)}
 				</div>
 			</div>
 		</nav>

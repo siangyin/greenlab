@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { LoginContext, AdminContext, UserContext } from "./helpers";
+import { LoginContext, AdminContext, UserContext, BE_URL } from "./helpers";
 import { Footer, NavBar } from "./components";
 import {
 	HomePage,
@@ -22,6 +22,38 @@ function App() {
 	const [loggedIn, setLoggedIn] = useState();
 	const [userID, setUserID] = useState();
 	const [admin, setAdmin] = useState();
+	const localuser = localStorage.getItem("userID");
+	const [currUser, setCurrUser] = useState();
+
+	useEffect(() => {
+		const getAllData = async (req, res) => {
+			try {
+				if (localuser) {
+					setLoggedIn(true);
+					setUserID(localuser);
+					const res = await axios.get(
+						`${BE_URL}/users/myacct?userId=${localuser}`
+					);
+					setCurrUser({
+						loggedIn: true,
+						user: res.data.user,
+						address: res.data.address,
+						order: res.data.order,
+					});
+
+					if (res.data.user.role === "admin") {
+						setAdmin(true);
+					}
+				}
+
+				return currUser;
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		getAllData();
+		console.log(currUser);
+	}, []);
 
 	return (
 		<LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
@@ -31,7 +63,11 @@ function App() {
 						<NavBar />
 						<main className="container mx-auto">
 							<Routes>
-								<Route exact path="/" element={<ProductListPage />} />
+								<Route
+									exact
+									path="/"
+									element={<ProductListPage currUser={currUser} />}
+								/>
 								<Route exact path="/login" element={<UserLoginPage />} />
 								<Route exact path="/signup" element={<UserLoginPage />} />
 								<Route
