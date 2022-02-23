@@ -144,11 +144,11 @@ function UserLoginPage() {
 		}
 	};
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+		<div className="min-h-screen flex flex-col items-center justify-center ">
 			<div
 				className="
           flex flex-col
-          bg-white
+          bg-gray-100
           shadow-md
           px-4
           sm:px-6

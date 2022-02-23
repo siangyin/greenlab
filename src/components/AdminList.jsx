@@ -39,7 +39,23 @@ function AdminList({ category, data }) {
 							<p className="text-gray-900 whitespace-no-wrap">{item.name}</p>
 						</td>
 						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">{item.role}</p>
+							<span
+								className={
+									item.role === "admin"
+										? `relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight`
+										: `relative inline-block px-3 py-1 font-semibold text-emerald-500 leading-tight`
+								}
+							>
+								<span
+									aria-hidden
+									className={
+										item.role === "admin"
+											? `absolute inset-0 bg-rose-200 opacity-50 rounded-full`
+											: `absolute inset-0 bg-emerald-200 opacity-50 rounded-full`
+									}
+								></span>
+								<span className="relative">{item.role}</span>
+							</span>
 						</td>
 					</tr>
 				);
