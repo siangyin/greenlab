@@ -2,51 +2,8 @@ import { useState } from "react";
 import Input from "./Input";
 
 function ProductForm() {
-	const [formProperty, setFormProperty] = useState([
-		{
-			name: "name",
-			label: "name",
-			required: true,
-			type: "text",
-			placeholder: "",
-		},
-		{
-			name: "price",
-			label: "price",
-			required: true,
-			type: "number",
-			placeholder: "",
-		},
-		{
-			name: "description",
-			label: "description",
-			required: true,
-			type: "text",
-			placeholder: "",
-		},
-
-		{
-			name: "image",
-			label: "image",
-			required: true,
-			type: "text",
-			placeholder: "img url",
-		},
-		{
-			name: "category",
-			label: "category",
-			required: true,
-			type: "text",
-			placeholder: "plants/accessory/supplies/services",
-		},
-		{
-			name: "status",
-			label: "status",
-			required: true,
-			type: "text",
-			placeholder: "true=publish or false=draft",
-		},
-	]);
+	const [formProperty, setFormProperty] = useState([]);
+	// type, name, value, handleChange, labelText, required
 	return (
 		<section className="h-screen">
 			<div className="container px-6 py-12 h-full">
@@ -61,9 +18,13 @@ function ProductForm() {
 					<div className="md:w-8/12 lg:w-5/12 lg:ml-20">
 						<form>
 							{/* <!-- Email input --> */}
-							{formProperty.map((item, i) => {
-								return <Input key={i} item={item} />;
-							})}
+							<Input
+								type="text"
+								name="name"
+								value=""
+								required="true"
+								handleChange=""
+							/>
 
 							{/* <!-- Submit button --> */}
 							<button
