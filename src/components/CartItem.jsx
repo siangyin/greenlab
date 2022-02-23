@@ -10,7 +10,7 @@ const CartItem = ({ item, handleDelete, handleUpdate }) => {
 					<img className="h-24" src={item.image} alt={item.name} />
 				</div>
 				<div className="flex flex-col justify-center ml-4 space-y-4">
-					<span className="font-bold text-sm">{item.name}</span>
+					<span className="font-bold text-sm uppercase">{item.name}</span>
 					<span className="font-semibold hover:text-rose-500 text-gray-500 text-xs">
 						<FaTrashAlt />
 					</span>

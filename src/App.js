@@ -23,8 +23,6 @@ function App() {
 	const [userID, setUserID] = useState();
 	const [admin, setAdmin] = useState();
 
-
-
 	return (
 		<LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
 			<UserContext.Provider value={{ userID, setUserID }}>
@@ -36,7 +34,22 @@ function App() {
 								<Route exact path="/" element={<ProductListPage />} />
 								<Route exact path="/login" element={<UserLoginPage />} />
 								<Route exact path="/signup" element={<UserLoginPage />} />
-								<Route exact path="/account" element={<UserAccountPage />} />
+								<Route
+									exact
+									path="/account"
+									element={<UserAccountPage minitab="profile" />}
+								/>
+								<Route
+									exact
+									path="/account-profile"
+									element={<UserAccountPage minitab="profile" />}
+								/>
+								<Route
+									exact
+									path="/account-order"
+									element={<UserAccountPage minitab="order" />}
+								/>
+
 								<Route exact path="/admin" element={<AdminPage />} />
 								<Route exact path="/products" element={<ProductListPage />} />
 								<Route

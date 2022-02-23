@@ -10,11 +10,10 @@ function Subheader({ subheader }) {
 	let pathId = usePathname();
 
 	return (
-		<div className="p-4 w-full text-center  sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+		<div className="p-4 w-full text-center">
 			<h3 className="mb-2 text-3xl font-bold text-gray-800 dark:text-white">
 				{subheader}
 			</h3>
-			<p className="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400"></p>
 		</div>
 	);
 }

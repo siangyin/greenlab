@@ -3,11 +3,11 @@ import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import axios from "axios";
 import { OrdersCard, ProfileDetail, Subheader } from "../components";
 
-function UserAccountPage() {
+function UserAccountPage({ minitab }) {
 	const { loggedIn, setLoggedIn } = useContext(LoginContext);
 	const { admin, setAdmin } = useContext(AdminContext);
 	const { userID, setUserID } = useContext(UserContext);
-	const [miniTab, setMiniTab] = useState("profile");
+	const [miniTab, setMiniTab] = useState(minitab);
 
 	const localuser = localStorage.getItem("userID");
 

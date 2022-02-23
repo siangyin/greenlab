@@ -1,12 +1,28 @@
 import { useContext, useState, useEffect } from "react";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { FaArrowLeft, FaMinus, FaPlus } from "react-icons/fa";
-import { CartItem, LoadingSpinner } from "../components";
+import { CartItem, LoadingSpinner, ButtonAction } from "../components";
 
 function CartPage() {
+	let navigate = useNavigate();
 	const [userCartDb, setUserCartDb] = useState();
 	const localuser = localStorage.getItem("userID");
+	const [userDetail, setUserDetail] = useState();
+	const getCurrentUserDetail = async (req, res) => {
+		try {
+			if (localuser) {
+				const res = await axios.get(
+					`${BE_URL}/users/myacct?userId=${localuser}`
+				);
+				setUserDetail(res.data);
+				console.log(res.data);
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	// functions
 	const getCurrentUserCart = async (req, res) => {
@@ -30,11 +46,36 @@ function CartPage() {
 		});
 	}
 
+	const postCartOrder = async (req, res) => {
+		try {
+			let cartIDs = [];
+			userCartDb.map((item) => cartIDs.push(item._id));
+			console.log({
+				orderItems: cartIDs,
+				shippingFee: 10,
+				address: userDetail.address._id,
+				userId: localuser,
+			});
+			if (localuser && userCartDb && userDetail) {
+				const res = await axios.post(`${BE_URL}/orders`, {
+					orderItems: cartIDs,
+					shippingFee: 10,
+					address: userDetail.address._id,
+					userId: localuser,
+				});
+				navigate(`/order/${res.data._id}`);
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	useEffect(() => {
 		getCurrentUserCart();
+		getCurrentUserDetail();
 	}, []);
 
-	if (!userCartDb) {
+	if (!userCartDb || !userDetail) {
 		return <LoadingSpinner />;
 	}
 
@@ -48,21 +89,24 @@ function CartPage() {
 					</div>
 					{/* header */}
 					<div className="flex mt-10 mb-5">
-						<h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
+						<h3 className="font-semibold text-gray-600 text-xs capitalize w-2/5">
 							Product Details
 						</h3>
-						<h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
+						<h3 className="font-semibold text-center text-gray-600 text-xs capitalize w-1/5">
 							Quantity
 						</h3>
-						<h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
+						<h3 className="font-semibold text-center text-gray-600 text-xs capitalize w-1/5">
 							Price
 						</h3>
-						<h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
+						<h3 className="font-semibold text-center text-gray-600 text-xs capitalize w-1/5">
 							Subtotal
 						</h3>
 					</div>
 
 					{/* content */}
+					{userCartDb.length === 0 && (
+						<span className="font-bold text-sm uppercase">no item in cart</span>
+					)}
 					{userCartDb &&
 						userCartDb.map((item) => {
 							return (
@@ -90,28 +134,29 @@ function CartPage() {
 						Order Summary
 					</h1>
 					<div className="flex justify-between mt-10 mb-5">
-						<span className="font-semibold text-sm uppercase">
+						<span className="font-semibold text-sm capitalize">
 							Items: {qtySum}
 						</span>
-						<span className="font-semibold text-sm">590$</span>
+						<span className="font-semibold text-sm">$ {subtotalSum}</span>
 					</div>
 					<div>
-						<label className="font-medium inline-block mb-3 text-sm uppercase">
-							Shipping
+						<label className="font-medium inline-block mb-3 text-sm capitalize">
+							Shipping shipping $10
 						</label>
 						<select className="block p-2 text-gray-600 w-full text-sm">
-							<option>Standard shipping - $10.00</option>
+							<option>{userDetail.address.address}</option>
 						</select>
 					</div>
 
 					<div className="border-t mt-8">
-						<div className="flex font-semibold justify-between py-6 text-sm uppercase">
+						<div className="flex font-semibold justify-between py-6 text-sm capitalize">
 							<span>Total cost</span>
 							<span>$ {subtotalSum + 10}</span>
 						</div>
-						<button className="bg-emerald-500 font-semibold hover:bg-emerald-600 py-3 text-sm text-white uppercase w-full">
-							submit order
-						</button>
+						<ButtonAction
+							labelText="submit order"
+							handleClick={postCartOrder}
+						/>
 					</div>
 				</div>
 			</div>
