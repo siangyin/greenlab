@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import axios from "axios";
-import { OrdersCard, ProfileDetail, Subheader } from "../components";
+import { AdminList, Subheader } from "../components";
 
 function AdminPage({ minitab }) {
 	const { loggedIn, setLoggedIn } = useContext(LoginContext);
@@ -11,10 +11,12 @@ function AdminPage({ minitab }) {
 
 	const localuser = localStorage.getItem("userID");
 
-	const [userInfo, setUserInfo] = useState({});
+	const [userInfo, setUserInfo] = useState();
+	const [userList, setUserList] = useState();
+	const [userOrderList, setUserOrderList] = useState();
 
 	useEffect(() => {
-		const getCurrentUserDetail = async (req, res) => {
+		const getAllData = async (req, res) => {
 			try {
 				if (localuser) {
 					const res = await axios.get(
@@ -28,6 +30,13 @@ function AdminPage({ minitab }) {
 
 					if (res.data.user.role === "admin") {
 						setAdmin(true);
+						const fetchusers = await axios.get(`${BE_URL}/users`);
+
+						const fetchorders = await axios.get(`${BE_URL}/orders`);
+						setUserList(fetchusers.data.data);
+						setUserOrderList(fetchorders.data.data);
+						console.log(fetchusers.data.data);
+						console.log(fetchorders.data.data);
 					}
 				}
 
@@ -36,11 +45,14 @@ function AdminPage({ minitab }) {
 				console.log(err);
 			}
 		};
-		getCurrentUserDetail();
+		getAllData();
 	}, []);
 
-	console.log(admin);
-	console.log(userInfo);
+	// console.loggsss
+	// if (admin && userInfo) {
+	// 	console.log(admin);
+	// 	console.log(userInfo);
+	// }
 
 	return (
 		<>
@@ -49,29 +61,31 @@ function AdminPage({ minitab }) {
 				<div className="flex flex-wrap -mb-px">
 					<button
 						className={
-							miniTab === "profile"
+							miniTab === "users"
 								? "mr-2 placeholder:inline-block py-4 px-4 text-sm font-medium text-center text-emerald-600 rounded-t-lg border-b-2 border-emerald-600 active dark:text-emerald-500 dark:border-emerald-500"
 								: "mr-2 inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
 						}
-						onClick={() => setMiniTab("profile")}
+						onClick={() => setMiniTab("users")}
 					>
-						Profile
+						user
 					</button>
 
 					<button
 						className={
-							miniTab === "order"
+							miniTab === "orders"
 								? "mr-2 placeholder:inline-block py-4 px-4 text-sm font-medium text-center text-emerald-600 rounded-t-lg border-b-2 border-emerald-600 active dark:text-emerald-500 dark:border-emerald-500"
 								: "mr-2 inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
 						}
-						onClick={() => setMiniTab("order")}
+						onClick={() => setMiniTab("orders")}
 					>
-						Orders
+						orders
 					</button>
 				</div>
 
-				{miniTab === "profile" && <ProfileDetail userInfo={userInfo} />}
-				{miniTab === "order" && <OrdersCard userInfo={userInfo} />}
+				{miniTab === "users" && <AdminList category="users" data={userList} />}
+				{miniTab === "orders" && (
+					<AdminList category="orders" data={userOrderList} />
+				)}
 			</div>
 		</>
 	);
