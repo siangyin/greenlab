@@ -1,8 +1,8 @@
 import React from "react";
 import { ProductForm } from "../components";
 
-function AdminProductPage() {
+function AdminProductSetupPage() {
 	return <ProductForm />;
 }
 
-export default AdminProductPage;
+export default AdminProductSetupPage;

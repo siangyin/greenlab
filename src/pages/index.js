@@ -1,12 +1,11 @@
 import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
-import SignupPage from "./SignupPage";
-import AccountPage from "./AccountPage";
+import UserLoginPage from "./UserLoginPage";
+import UserAccountPage from "./UserAccountPage";
 import AdminPage from "./AdminPage";
-import AllProductsPage from "./AllProductsPage";
-import SingleProductPage from "./SingleProductPage";
-import AdminProductPage from "./AdminProductPage";
-import AllOrdersPage from "./AllOrdersPage";
+import ProductListPage from "./ProductListPage";
+import ProductSinglePage from "./ProductSinglePage";
+import AdminProductSetupPage from "./AdminProductSetupPage";
+import AdminAllOrdersPage from "./AdminAllOrdersPage";
 import OrderPage from "./OrderPage";
 import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
@@ -16,14 +15,13 @@ import Error404Page from "./Error404Page";
 
 export {
 	HomePage,
-	LoginPage,
-	SignupPage,
-	AccountPage,
+	UserLoginPage,
+	UserAccountPage,
 	AdminPage,
-	AllProductsPage,
-	SingleProductPage,
-	AdminProductPage,
-	AllOrdersPage,
+	ProductListPage,
+	ProductSinglePage,
+	AdminProductSetupPage,
+	AdminAllOrdersPage,
 	OrderPage,
 	CartPage,
 	CheckoutPage,

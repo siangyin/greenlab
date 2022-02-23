@@ -1,7 +1,7 @@
 import React from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-function SingleProductPage() {
+function ProductSinglePage() {
 	return (
 		<div className="2xl:container 2xl:mx-auto md:py-12 lg:px-20 md:px-6 py-9 px-4">
 			<div id="viewerButton" className="hidden w-full flex justify-center">
@@ -57,4 +57,4 @@ function SingleProductPage() {
 	);
 }
 
-export default SingleProductPage;
+export default ProductSinglePage;

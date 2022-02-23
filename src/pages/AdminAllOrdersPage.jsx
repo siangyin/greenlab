@@ -1,7 +1,7 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 
-function AllOrdersPage() {
+function AdminAllOrdersPage() {
 	return (
 		<div className="bg-white p-8 rounded-md w-full">
 			<div className=" flex items-center justify-between pb-6">
@@ -198,4 +198,4 @@ function AllOrdersPage() {
 	);
 }
 
-export default AllOrdersPage;
+export default AdminAllOrdersPage;
