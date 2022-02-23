@@ -3,12 +3,24 @@ import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { FaArrowLeft, FaMinus, FaPlus } from "react-icons/fa";
-import { CartItem, LoadingSpinner } from "../components";
+import { CartItem, LoadingSpinner, ButtonAction } from "../components";
 
 function OrderPage() {
 	const { id } = useParams();
+	const { loggedIn, setLoggedIn } = useContext(LoginContext);
+	const { admin, setAdmin } = useContext(AdminContext);
+	const { userID, setUserID } = useContext(UserContext);
 	const [userOrderDb, setUserOrderDb] = useState();
 	const [userCartDb, setUserCartDb] = useState();
+	const [statusOption, setStatusOption] = useState();
+	const statusOptionList = [
+		"pending",
+		"processing",
+		"failed",
+		"paid",
+		"delivered",
+		"canceled",
+	];
 	// const localuser = localStorage.getItem("userID");
 
 	const [userDetail, setUserDetail] = useState();
@@ -45,6 +57,16 @@ function OrderPage() {
 		}
 	};
 
+	async function handleStatusChange(e) {
+		setStatusOption(e.target.value);
+
+		const res = await axios.patch(`${BE_URL}/orders/${id}`, {
+			status: e.target.value,
+		});
+		console.log(res);
+		getCurrentUserOrder();
+	}
+
 	useEffect(() => {
 		getCurrentUserOrder();
 	}, []);
@@ -53,10 +75,12 @@ function OrderPage() {
 		return <LoadingSpinner />;
 	}
 
+	console.log(statusOption);
+
 	return (
 		<div className="container mx-auto mt-10">
 			<div className="flex shadow-md my-10">
-				<div className="w-3/4 bg-white px-10 py-10">
+				<div className="w-3/4 px-10 py-10">
 					<div className="flex justify-between border-b pb-8">
 						<h1 className="font-semibold text-2xl">
 							Order ref >
@@ -82,14 +106,7 @@ function OrderPage() {
 					{/* content */}
 					{userCartDb &&
 						userCartDb.map((item) => {
-							return (
-								<CartItem
-									key={item._id}
-									item={item}
-									handleUpdate=""
-									handleDelete=""
-								/>
-							);
+							return <CartItem key={item._id} item={item} />;
 						})}
 					{/* content */}
 
@@ -103,9 +120,34 @@ function OrderPage() {
 				</div>
 
 				<div id="summary" className="w-1/4 px-8 py-10">
-					<h1 className="font-semibold text-2xl border-b pb-8">
-						Status: {userOrderDb.status}
-					</h1>
+					{admin && (
+						<div>
+							<label className="font-medium inline-block mb-3 text-sm capitalize">
+								status
+							</label>
+							<select
+								name="status"
+								value={userOrderDb.status}
+								onChange={handleStatusChange}
+								className="block p-2 text-rose-600 w-full text-sm bg-grey-100"
+							>
+								{statusOptionList.map((item, i) => {
+									return (
+										<option key={i} value={item}>
+											{item}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+					)}
+					{/* if user */}
+					{!admin && (
+						<h1 className="font-semibold text-2xl border-b pb-8">
+							Status: {userOrderDb.status}
+						</h1>
+					)}
+
 					<div className="flex justify-between mt-10 mb-5">
 						<span className="font-semibold text-sm capitalize">Subtotal</span>
 						<span className="font-semibold text-sm">
