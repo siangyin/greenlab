@@ -31,7 +31,7 @@ function ProductCard({ item }) {
 		<div className="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
 			<Link to={`/product/${item._id}`}>
 				<img
-					className="p-8 rounded-t-lg object-contain h-48 w-96"
+					className="p-8 rounded-t-lg object-cover h-48 w-96"
 					src={item.image}
 					alt={item.name}
 				/>
