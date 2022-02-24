@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import axios from "axios";
-import { AdminList, Subheader } from "../components";
+import { AdminList, Subheader, UnauthorisedCard } from "../components";
 
 function AdminPage({ minitab }) {
 	const { loggedIn, setLoggedIn } = useContext(LoginContext);
@@ -48,11 +48,13 @@ function AdminPage({ minitab }) {
 		getAllData();
 	}, []);
 
-	// console.loggsss
-	// if (admin && userInfo) {
-	// 	console.log(admin);
-	// 	console.log(userInfo);
-	// }
+	if (!loggedIn) {
+		return <UnauthorisedCard />;
+	}
+
+	if (loggedIn && !admin) {
+		return <UnauthorisedCard />;
+	}
 
 	return (
 		<>

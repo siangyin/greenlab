@@ -4,6 +4,7 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { FaArrowLeft, FaMinus, FaPlus } from "react-icons/fa";
 import { CartItem, LoadingSpinner, ButtonAction } from "../components";
+import nodataimg from "../assets/images/nodata.svg";
 
 function CartPage() {
 	let navigate = useNavigate();
@@ -85,7 +86,21 @@ function CartPage() {
 	}, []);
 
 	if (!userCartDb || !userDetail) {
-		return <LoadingSpinner />;
+		return (
+			<div className="flex flex-col justify-center">
+				<img src={nodataimg} alt="nodataimg" className="h-96" />
+				<h2 className="text-center">{"Ooops... your cart is empty!"} </h2>
+
+				<Link to="/" className="text-center">
+					<button
+						className="text-center bg-emerald-500 hover:bg-emerald-300 text-white font-bold py-2 px-4 my-5 rounded mb-40"
+						variant="primary"
+					>
+						shop now
+					</button>
+				</Link>
+			</div>
+		);
 	}
 
 	return (

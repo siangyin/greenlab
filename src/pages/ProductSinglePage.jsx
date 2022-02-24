@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import { BE_URL } from "../helpers";
+import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import { LoadingSpinner, Input, ButtonAction } from "../components";
@@ -8,6 +8,9 @@ import { LoadingSpinner, Input, ButtonAction } from "../components";
 function ProductSinglePage() {
 	const { id } = useParams();
 	const localuser = localStorage.getItem("userID");
+	const { loggedIn, setLoggedIn } = useContext(LoginContext);
+	const { admin, setAdmin } = useContext(AdminContext);
+	const { userID, setUserID } = useContext(UserContext);
 	const [prodDb, setProdDb] = useState();
 	const [prodReviewDb, setProdReviewDb] = useState();
 	const [addQty, setAddQty] = useState(1);
@@ -96,17 +99,19 @@ function ProductSinglePage() {
 						$ {prodDb.price}
 					</span>
 
-					<div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-16">
-						{/* divider */}
-						<Input
-							type="number"
-							name="qty"
-							value={addQty ? addQty : "1"}
-							handleChange={handleChange}
-							required="true"
-						/>
-						<ButtonAction labelText="add to cart" handleClick={postQtyCart} />
-					</div>
+					{!admin && (
+						<div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-16">
+							{/* divider */}
+							<Input
+								type="number"
+								name="qty"
+								value={addQty ? addQty : "1"}
+								handleChange={handleChange}
+								required="true"
+							/>
+							<ButtonAction labelText="add to cart" handleClick={postQtyCart} />
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

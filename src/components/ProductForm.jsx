@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BE_URL } from "../helpers";
 import axios from "axios";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import { Input, ButtonAction, Subheader } from "./";
+import { Input, ButtonAction, Subheader, LoadingSpinner } from "./";
 
 function ProductForm() {
 	const [productsData, setProductsData] = useState();
@@ -77,6 +77,9 @@ function ProductForm() {
 		}
 	}, []);
 
+	if (id && !productsData) {
+		return <LoadingSpinner />;
+	}
 	return (
 		<form className="m-10">
 			<Input

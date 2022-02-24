@@ -11,7 +11,7 @@ function Subheader({ subheader }) {
 
 	return (
 		<div className="p-4 w-full text-center">
-			<h3 className="mb-2 text-3xl font-bold text-gray-800 dark:text-white">
+			<h3 className="mb-2 text-3xl font-bold text-gray-800 dark:text-white capitalize">
 				{subheader}
 			</h3>
 		</div>

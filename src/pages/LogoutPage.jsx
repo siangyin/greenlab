@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import error404img from "../assets/images/error404.svg";
+import logoutimg from "../assets/images/logout.svg";
 
-function Error404Page({ msg }) {
+function LogoutPage({ msg }) {
 	return (
 		<div className="flex flex-col justify-center">
-			<img src={error404img} alt="nofoundimg" className="h-96" />
-			<h2 className="text-center">{"Ooops... sorry, page not found!"} </h2>
+			<img src={logoutimg} alt="logoutimg" className="h-96" />
+			<h2 className="text-center">{"User logged out!"} </h2>
 
 			<Link to="/" className="text-center">
 				<button
@@ -20,4 +20,4 @@ function Error404Page({ msg }) {
 	);
 }
 
-export default Error404Page;
+export default LogoutPage;

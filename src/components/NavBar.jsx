@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
-import { FaLeaf, FaBars } from "react-icons/fa";
+import { FaLeaf, FaBars, FaDatabase } from "react-icons/fa";
 
 const NavBar = () => {
 	const [showLinks, setShowLinks] = useState(true);
@@ -10,6 +10,7 @@ const NavBar = () => {
 	const { admin, setAdmin } = useContext(AdminContext);
 	const { userID, setUserID } = useContext(UserContext);
 	let navigate = useNavigate();
+	const localuser = localStorage.getItem("userID");
 
 	const updateWidth = () => {
 		setWindowWidth(window.innerWidth);
@@ -21,9 +22,12 @@ const NavBar = () => {
 	};
 
 	useEffect(() => {
+		if (localuser) {
+			setLoggedIn(true);
+		}
 		window.addEventListener("resize", updateWidth);
 		return () => window.removeEventListener("resize", updateWidth);
-	}, [windowWidth]);
+	}, []);
 
 	// functions
 	const handleLogOut = async () => {
@@ -40,12 +44,11 @@ const NavBar = () => {
 			setUserID(false);
 			localStorage.removeItem("userID");
 			console.log(responseLogout);
-			navigate("/");
+			navigate("/logout");
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	console.log(loggedIn);
 
 	return (
 		<nav className="flex items-center justify-between flex-wrap bg-emerald-500 p-6">
@@ -69,12 +72,23 @@ const NavBar = () => {
 			</div>
 			<div className="w-full block flex-grow md:flex md:items-center md:w-auto">
 				<div className="text-sm md:flex-grow">
-					<a
-						href="/"
-						className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-					>
-						All Products
-					</a>
+					{admin ? (
+						<>
+							<Link
+								to="/"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Store
+							</Link>
+						</>
+					) : (
+						<Link
+							to="/"
+							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+						>
+							All Products
+						</Link>
+					)}
 				</div>
 				<div>
 					{!loggedIn && (
@@ -91,34 +105,41 @@ const NavBar = () => {
 							>
 								Sign Up
 							</Link>
+							<Link
+								to="/cart"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Cart
+							</Link>
 						</>
 					)}
 
-					{admin ? (
-						<Link
-							to="/admin"
-							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-						>
-							Admin
-						</Link>
-					) : (
-						<Link
-							to="/cart"
-							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-						>
-							Cart
-						</Link>
-					)}
-
-					{loggedIn && (
+					{admin && (
 						<>
 							<Link
-								to="/account"
+								to="/admin-products"
 								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
 							>
-								Account
+								Manage Products
 							</Link>
-
+							<Link
+								to="/admin"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Database
+							</Link>
+						</>
+					)}
+					{!admin && loggedIn && (
+						<Link
+							to="/account"
+							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+						>
+							Account
+						</Link>
+					)}
+					{loggedIn && (
+						<>
 							<button
 								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
 								onClick={handleLogOut}

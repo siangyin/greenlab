@@ -4,17 +4,17 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "./helpers";
 import { Footer, NavBar } from "./components";
 import {
-	HomePage,
+	AdminProductList,
 	UserLoginPage,
 	UserAccountPage,
 	AdminPage,
 	ProductListPage,
 	ProductSinglePage,
 	AdminProductSetupPage,
-	AdminAllOrdersPage,
 	OrderPage,
 	CartPage,
 	CheckoutPage,
+	LogoutPage,
 	Error404Page,
 } from "./pages";
 
@@ -46,13 +46,12 @@ function App() {
 					}
 				}
 
-				return currUser;
+				console.log(currUser);
 			} catch (err) {
 				console.log(err);
 			}
 		};
 		getAllData();
-		console.log(currUser);
 	}, []);
 
 	return (
@@ -67,6 +66,11 @@ function App() {
 									exact
 									path="/"
 									element={<ProductListPage currUser={currUser} />}
+								/>
+								<Route
+									exact
+									path="/admin-products"
+									element={<AdminProductList currUser={currUser} />}
 								/>
 								<Route exact path="/login" element={<UserLoginPage />} />
 								<Route exact path="/signup" element={<UserLoginPage />} />
@@ -123,6 +127,7 @@ function App() {
 								<Route exact path="/cart" element={<CartPage />} />
 								{/* <Route exact path="/orders" element={<AdminAllOrdersPage />} /> */}
 								<Route exact path="/order/:id" element={<OrderPage />} />
+								<Route exact path="/logout" element={<LogoutPage />} />
 								<Route exact path="/checkout" element={<CheckoutPage />} />
 								<Route path="*" element={<Error404Page />} />
 							</Routes>

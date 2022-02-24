@@ -5,25 +5,30 @@ import axios from "axios";
 import { FaStar, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { ButtonAction } from "../components";
 
-function ProductCard({ item }) {
+function ProductCardAdmin({ item }) {
 	const localuser = localStorage.getItem("userID");
 	const { loggedIn, setLoggedIn } = useContext(LoginContext);
 	const { admin, setAdmin } = useContext(AdminContext);
 	const { userID, setUserID } = useContext(UserContext);
+	const [successMsg, setSuccessMsg] = useState();
+	let navigate = useNavigate();
 
-	const postAdd1Cart = async (req, res) => {
+	const handleDelete = async (req, res) => {
 		try {
-			if (localuser) {
-				const res = await axios.post(`${BE_URL}/carts`, {
-					productId: item._id,
-					qty: 1,
-					userId: localuser,
-				});
-
+			if (admin) {
+				const res = await axios.delete(`${BE_URL}/products/${item._id}`);
 				console.log(res);
+				setSuccessMsg(res.data.msg);
+				location.reload();
 			}
 		} catch (err) {
 			console.error(err);
+		}
+	};
+
+	const handleEdit = () => {
+		if (item._id) {
+			navigate(`/product-edit/${item._id}`);
 		}
 	};
 
@@ -42,23 +47,27 @@ function ProductCard({ item }) {
 						{item.name}
 					</h3>
 				</Link>
-				<div className="flex items-center mt-2.5 mb-5">
-					<span className="bg-yellow-100 text-black-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200">
-						{item.category}
-					</span>{" "}
-					<FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar />
+
+				<div className="inline-flex rounded-md shadow-sm" role="group">
+					<Link
+						to={`/product-edit/${item._id}`}
+						className="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border hover:bg-rose-100 hover:text-rose-500 focus:z-10 focus:ring-2 focus:ring-rose-500 focus:text-rose-500"
+					>
+						<FaEdit />
+						Edit
+					</Link>
+					<button
+						type="button"
+						onClick={handleDelete}
+						className="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border hover:bg-rose-100 hover:text-rose-500 focus:z-10 focus:ring-2 focus:ring-rose-500 focus:text-rose-500"
+					>
+						<FaTrashAlt />
+						Delete
+					</button>
 				</div>
-				{!admin && (
-					<div className="flex justify-between items-center">
-						<span className="text-3xl font-bold text-gray-900 dark:text-white">
-							$ {item.price}
-						</span>
-						<ButtonAction labelText="add to cart" handleClick={postAdd1Cart} />
-					</div>
-				)}
 			</div>
 		</div>
 	);
 }
 
-export default ProductCard;
+export default ProductCardAdmin;

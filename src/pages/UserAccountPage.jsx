@@ -1,7 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import axios from "axios";
-import { OrdersCard, ProfileDetail, Subheader } from "../components";
+import {
+	OrdersCard,
+	ProfileDetail,
+	Subheader,
+	UnauthorisedCard,
+} from "../components";
 
 function UserAccountPage({ minitab }) {
 	const { loggedIn, setLoggedIn } = useContext(LoginContext);
@@ -37,6 +42,10 @@ function UserAccountPage({ minitab }) {
 		};
 		getCurrentUserDetail();
 	}, []);
+
+	if (!loggedIn) {
+		return <UnauthorisedCard />;
+	}
 
 	return (
 		<>
