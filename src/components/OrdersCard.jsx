@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import axios from "axios";
 
@@ -34,8 +35,7 @@ function OrdersCard() {
 	}, []);
 	console.log(userOrdersDb);
 
-	if (Boolean(userOrdersDb)) {
-		console.log(userOrdersDb);
+	if (!userOrdersDb) {
 		return (
 			<div className="p-4 max-w-md bg-white rounded-lg border sm:p-8 dark:bg-gray-800 dark:border-gray-700">
 				<div className="flex justify-between items-center mb-4">
@@ -66,12 +66,12 @@ function OrdersCard() {
 								<li className="py-3 sm:py-4" key={item._id}>
 									<div className="flex items-center space-x-4">
 										<div className="flex-1 min-w-0">
-											<a
-												href={`/order/${item._id}`}
+											<Link
+												to={`/order/${item._id}`}
 												className="text-sm font-medium text-emerald-600 hover:underline dark:text-emerald-500"
 											>
 												Order No: {item._id}
-											</a>
+											</Link>
 											<p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">
 												status: {item.status}
 											</p>

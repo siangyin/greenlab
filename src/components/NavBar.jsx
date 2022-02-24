@@ -25,6 +25,7 @@ const NavBar = () => {
 		if (localuser) {
 			setLoggedIn(true);
 		}
+
 		window.addEventListener("resize", updateWidth);
 		return () => window.removeEventListener("resize", updateWidth);
 	}, []);
@@ -38,18 +39,16 @@ const NavBar = () => {
 					"Content-Type": "application/json",
 				},
 			});
-
+			localStorage.clear();
 			setLoggedIn(false);
 			setAdmin(false);
-			setUserID(false);
-			localStorage.removeItem("userID");
-			console.log(responseLogout);
+			setUserID();
 			navigate("/logout");
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
+	console.log(userID);
 	return (
 		<nav className="flex items-center justify-between flex-wrap bg-emerald-500 p-6">
 			<a className="flex items-center flex-shrink-0 text-white mr-6" href="/">
@@ -105,12 +104,6 @@ const NavBar = () => {
 							>
 								Sign Up
 							</Link>
-							<Link
-								to="/cart"
-								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-							>
-								Cart
-							</Link>
 						</>
 					)}
 
@@ -131,12 +124,20 @@ const NavBar = () => {
 						</>
 					)}
 					{!admin && loggedIn && (
-						<Link
-							to="/account"
-							className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
-						>
-							Account
-						</Link>
+						<>
+							<Link
+								to="/account"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Account
+							</Link>{" "}
+							<Link
+								to="/cart"
+								className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-emerald-500 hover:bg-white  md:mt-0"
+							>
+								Cart
+							</Link>
+						</>
 					)}
 					{loggedIn && (
 						<>

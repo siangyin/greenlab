@@ -67,9 +67,11 @@ function AdminList({ category, data }) {
 					<tr key={item._id}>
 						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 							<div className="flex items-center">
-								<div className="ml-3">
-									<p className="text-gray-900 whitespace-no-wrap">{item._id}</p>
-								</div>
+								<Link to={`/order/${item._id}`} className="ml-3">
+									<p className="text-sm font-medium text-emerald-600 hover:underline dark:text-emerald-500">
+										{item._id}
+									</p>
+								</Link>
 							</div>
 						</td>
 						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

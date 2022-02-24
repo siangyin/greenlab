@@ -6,6 +6,7 @@ import { Input, ButtonAction } from "./";
 function ProfileDetail({ userInfo }) {
 	const [userAddInputDb, setUserAddInputDb] = useState();
 	const [userInputDb, setUserInputDb] = useState();
+	const [successMsg, setSuccessMsg] = useState();
 	const localuser = localStorage.getItem("userID");
 
 	// functions
@@ -34,10 +35,10 @@ function ProfileDetail({ userInfo }) {
 					...userInputDb,
 					address: userAddInputDb,
 				});
-
-				console.log(res);
+				if (res.data.status === "OK") {
+					setSuccessMsg(true);
+				}
 				setUserAddInputDb(res.data.address);
-
 				setUserInputDb(res.data.user);
 			}
 		} catch (err) {
@@ -121,6 +122,11 @@ function ProfileDetail({ userInfo }) {
 				labelText="update profile"
 				handleClick={postUpdatedUserProfile}
 			/>
+			{successMsg && (
+				<span className="text-rose-400 font-md mr-2 px-2.5 hover:text-rose-500">
+					profile updated
+				</span>
+			)}
 		</form>
 	);
 }

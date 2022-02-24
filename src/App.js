@@ -30,7 +30,6 @@ function App() {
 			try {
 				if (localuser) {
 					setLoggedIn(true);
-					setUserID(localuser);
 					const res = await axios.get(
 						`${BE_URL}/users/myacct?userId=${localuser}`
 					);
@@ -41,12 +40,21 @@ function App() {
 						order: res.data.order,
 					});
 
+					setUserID({
+						loggedIn: true,
+						user: res.data.user,
+						address: res.data.address,
+						order: res.data.order,
+					});
+
 					if (res.data.user.role === "admin") {
 						setAdmin(true);
 					}
-				}
 
-				console.log(currUser);
+					if (res.data.user.role === "user") {
+						setAdmin(false);
+					}
+				}
 			} catch (err) {
 				console.log(err);
 			}

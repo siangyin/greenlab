@@ -43,13 +43,13 @@ const CartItem = ({
 				</div>
 			</div>
 			<div className="flex justify-center w-1/5">
-				<button className="px-3 hover:text-rose-500">
+				{/* <button className="px-3 hover:text-rose-500">
 					{!id && <FaMinus />}
-				</button>
+				</button> */}
 				<span className="px-3">{item.qty}</span>
-				<button className="px-3 hover:text-rose-500">
+				{/* <button className="px-3 hover:text-rose-500">
 					{!id && <FaPlus />}
-				</button>
+				</button> */}
 			</div>
 			<span className="text-center w-1/5 font-semibold text-sm">
 				{item.price}

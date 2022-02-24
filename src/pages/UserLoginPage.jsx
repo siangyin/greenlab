@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Input } from "./index";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -41,6 +42,33 @@ function UserLoginPage() {
 	}
 
 	// functions
+	const getAllData = async (id) => {
+		try {
+			if (id) {
+				setLoggedIn(true);
+				const res = await axios.get(`${BE_URL}/users/myacct?userId=${id}`);
+
+				setUserID({
+					loggedIn: true,
+					user: res.data.user,
+					address: res.data.address,
+					order: res.data.order,
+				});
+
+				if (res.data.user.role === "admin") {
+					setAdmin(true);
+				}
+
+				if (res.data.user.role === "user") {
+					setAdmin(false);
+				}
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	// functions
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		console.log(userInputDb);
@@ -55,20 +83,23 @@ function UserLoginPage() {
 			const loginDetails = await responseLogin.json();
 
 			if (loginDetails.status === "OK") {
-				console.log(loginDetails);
-				setLoggedIn(true);
-				setUserID(loginDetails.user.userID);
-				if (loginDetails.role === "admin") {
-					setAdmin(true);
-				} else {
-					setAdmin(false);
-				}
+				getAllData(loginDetails.user.userID);
+				console.log(loginDetails.user.userID);
 				localStorage.setItem("userID", loginDetails.user.userID);
 				setErrorMsg((prevState) => ({
 					...prevState,
 					status: false,
 				}));
-				navigate("/account");
+			}
+
+			if (loginDetails.user.role === "admin") {
+				setAdmin(true);
+				navigate("/admin-products");
+			}
+
+			if (loginDetails.user.role === "user") {
+				setAdmin(false);
+				navigate("/");
 			}
 
 			if (loginDetails.status !== "OK") {

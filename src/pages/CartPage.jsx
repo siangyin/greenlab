@@ -86,21 +86,7 @@ function CartPage() {
 	}, []);
 
 	if (!userCartDb || !userDetail) {
-		return (
-			<div className="flex flex-col justify-center">
-				<img src={nodataimg} alt="nodataimg" className="h-96" />
-				<h2 className="text-center">{"Ooops... your cart is empty!"} </h2>
-
-				<Link to="/" className="text-center">
-					<button
-						className="text-center bg-emerald-500 hover:bg-emerald-300 text-white font-bold py-2 px-4 my-5 rounded mb-40"
-						variant="primary"
-					>
-						shop now
-					</button>
-				</Link>
-			</div>
-		);
+		return <LoadingSpinner />;
 	}
 
 	return (
@@ -187,7 +173,7 @@ function CartPage() {
 							<span>Total cost</span>
 							<span>$ {subtotalSum + 10}</span>
 						</div>
-						{userCartDb.length > 1 && (
+						{userCartDb.length !== 0 && (
 							<ButtonAction
 								labelText="submit order"
 								handleClick={postCartOrder}
