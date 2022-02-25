@@ -69,7 +69,7 @@ function ProductSinglePage() {
 	return (
 		<div className="2xl:container 2xl:mx-auto md:py-12 lg:px-20 md:px-6 py-9 px-4">
 			<div className="mt-3 md:mt-4 lg:mt-0 flex flex-col lg:flex-row items-strech justify-center lg:space-x-8">
-				<div className="lg:w-1/2 flex justify-between items-strech bg-gray-50  px-2 py-20 md:py-6 md:px-6 lg:py-24">
+				<div className="lg:w-1/2 flex justify-between items-strech bg-white  px-2 py-20 md:py-6 md:px-6 lg:py-24">
 					<img
 						className="object-contain max-h-64 w-full"
 						src={prodDb.image}
