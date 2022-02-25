@@ -59,13 +59,13 @@ function AdminPage({ minitab }) {
 	return (
 		<>
 			<Subheader subheader="admin" />
-			<div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+			<div className="mb-4 border-b border-gray-200">
 				<div className="flex flex-wrap -mb-px">
 					<button
 						className={
 							miniTab === "users"
-								? "mr-2 placeholder:inline-block py-4 px-4 text-sm font-medium text-center text-emerald-600 rounded-t-lg border-b-2 border-emerald-600 active dark:text-emerald-500 dark:border-emerald-500"
-								: "mr-2 inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+								? "mr-2 placeholder:inline-block py-4 px-4 text-sm font-medium text-center text-emerald-600 rounded-t-lg border-b-2 border-emerald-600 active"
+								: "mr-2 inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300"
 						}
 						onClick={() => setMiniTab("users")}
 					>
@@ -75,8 +75,8 @@ function AdminPage({ minitab }) {
 					<button
 						className={
 							miniTab === "orders"
-								? "mr-2 placeholder:inline-block py-4 px-4 text-sm font-medium text-center text-emerald-600 rounded-t-lg border-b-2 border-emerald-600 active dark:text-emerald-500 dark:border-emerald-500"
-								: "mr-2 inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+								? "mr-2 placeholder:inline-block py-4 px-4 text-sm font-medium text-center text-emerald-600 rounded-t-lg border-b-2 border-emerald-600 active"
+								: "mr-2 inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300"
 						}
 						onClick={() => setMiniTab("orders")}
 					>

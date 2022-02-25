@@ -33,7 +33,7 @@ function ProductCardAdmin({ item }) {
 	};
 
 	return (
-		<div className="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+		<div className="max-w-sm bg-white rounded-lg shadow-md">
 			<Link to={`/product/${item._id}`}>
 				<img
 					className="p-8 rounded-t-lg object-contain max-h-64 w-full"
@@ -43,7 +43,7 @@ function ProductCardAdmin({ item }) {
 			</Link>
 			<div className="px-5 pb-5">
 				<Link to={`/product/${item._id}`}>
-					<h3 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+					<h3 className="text-xl font-semibold tracking-tight text-gray-900">
 						{item.name}
 					</h3>
 				</Link>
