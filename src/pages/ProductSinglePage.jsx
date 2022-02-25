@@ -71,7 +71,7 @@ function ProductSinglePage() {
 			<div className="mt-3 md:mt-4 lg:mt-0 flex flex-col lg:flex-row items-strech justify-center lg:space-x-8">
 				<div className="lg:w-1/2 flex justify-between items-strech bg-gray-50  px-2 py-20 md:py-6 md:px-6 lg:py-24">
 					<img
-						className="object-cover h-48 w-96"
+						className="object-contain max-h-64 w-full"
 						src={prodDb.image}
 						alt={prodDb.name}
 					/>
