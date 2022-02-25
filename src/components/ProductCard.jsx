@@ -28,7 +28,7 @@ function ProductCard({ item }) {
 	};
 
 	return (
-		<div className="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+		<div className="max-w-sm bg-white rounded-lg shadow-md">
 			<Link to={`/product/${item._id}`}>
 				<img
 					className="p-8 rounded-t-lg object-contain max-h-64 w-full"
@@ -38,19 +38,19 @@ function ProductCard({ item }) {
 			</Link>
 			<div className="px-5 pb-5">
 				<Link to={`/product/${item._id}`}>
-					<h3 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+					<h3 className="text-xl font-semibold tracking-tight text-gray-900">
 						{item.name}
 					</h3>
 				</Link>
 				<div className="flex items-center mt-2.5 mb-5">
-					<span className="bg-yellow-100 text-black-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200">
+					<span className="bg-yellow-100 text-black-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
 						{item.category}
 					</span>{" "}
 					<FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar />
 				</div>
 				{!admin && (
 					<div className="flex justify-between items-center">
-						<span className="text-3xl font-bold text-gray-900 dark:text-white">
+						<span className="text-3xl font-bold text-gray-900">
 							$ {item.price}
 						</span>
 						<ButtonAction labelText="add to cart" handleClick={postAdd1Cart} />
