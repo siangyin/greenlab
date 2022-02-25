@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { LoginContext, AdminContext, UserContext, BE_URL } from "../helpers";
+import { LoadingSpinner } from ".";
 import axios from "axios";
 
 function OrdersCard() {
@@ -36,21 +37,13 @@ function OrdersCard() {
 	console.log(userOrdersDb);
 
 	if (!userOrdersDb) {
-		return (
-			<div className="p-4 max-w-md bg-white rounded-lg border sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-				<div className="flex justify-between items-center mb-4">
-					<h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white capitalize">
-						No order
-					</h3>
-				</div>
-			</div>
-		);
+		return <LoadingSpinner />;
 	}
 	return (
 		<div className="p-4 max-w-md bg-white rounded-lg border sm:p-8 dark:bg-gray-800 dark:border-gray-700">
 			<div className="flex justify-between items-center mb-4">
 				<h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white capitalize">
-					{userOrdersDb ? "all order" : "no order"}
+					{userOrdersDb.length === 0 ? "no order" : "all order"}
 				</h3>
 			</div>
 			<div className="flow-root">
