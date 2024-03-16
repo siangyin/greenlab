@@ -12,6 +12,8 @@ import {
 	ProductSinglePage,
 	AdminProductSetupPage,
 	OrderPage,
+	UserOrderPage,
+	AdminOrderPage,
 	CartPage,
 	CheckoutPage,
 	LogoutPage,
@@ -134,7 +136,11 @@ function App() {
 								/>
 								<Route exact path="/cart" element={<CartPage />} />
 								{/* <Route exact path="/orders" element={<AdminAllOrdersPage />} /> */}
-								<Route exact path="/order/:id" element={<OrderPage />} />
+								<Route
+									exact
+									path="/user-order/:id"
+									element={<UserOrderPage />}
+								/>
 								<Route exact path="/logout" element={<LogoutPage />} />
 								<Route exact path="/checkout" element={<CheckoutPage />} />
 								<Route path="*" element={<Error404Page />} />

@@ -7,6 +7,8 @@ import ProductSinglePage from "./ProductSinglePage";
 import AdminProductSetupPage from "./AdminProductSetupPage";
 import AdminProductList from "./AdminProductList";
 import OrderPage from "./OrderPage";
+import UserOrderPage from "./UserOrderPage";
+import AdminOrderPage from "./AdminOrderPage";
 import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
 import Error404Page from "./Error404Page";
@@ -24,6 +26,8 @@ export {
 	ProductSinglePage,
 	AdminProductSetupPage,
 	OrderPage,
+	UserOrderPage,
+	AdminOrderPage,
 	CartPage,
 	CheckoutPage,
 	Error404Page,
